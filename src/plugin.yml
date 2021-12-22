@@ -1,0 +1,16 @@
+name: XcubUtils
+main: fr.quinou.xcubutils.Main
+version: 1.0
+author: Quinou
+description: Xcub Utils
+website: www.google.fr
+commands:
+  getcoin:
+    description: GetCoin
+    usage: /<command>
+  givemoney:
+    description: GiveMoney
+    usage: /<command>
+  setmoney:
+    description: GiveMoney
+    usage: /<command>
