@@ -6,8 +6,8 @@ description: Xcub Utils
 website: www.google.fr
 commands:
   getcoin:
-    description: GetCoin
-    usage: /<command>
+    description: Voir son argent
+    usage: /<command> <online_player>
   givemoney:
     description: GiveMoney
     usage: /<command>

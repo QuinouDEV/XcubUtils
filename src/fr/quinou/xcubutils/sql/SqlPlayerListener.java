@@ -1,7 +1,6 @@
 package fr.quinou.xcubutils.sql;
 
 import fr.quinou.xcubutils.Main;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -35,45 +34,9 @@ public class SqlPlayerListener
 
     }
 
-    public boolean playerFound(UUID uuid){
-        try{
-            connection = main.getSqlManager().getConnection();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM players_money WHERE UUID=?");
-            ps.setString(1, uuid.toString());
-
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                main.getServer().broadcastMessage(ChatColor.YELLOW + "Player found");
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 
-    public String getXCoins(UUID uuid){
 
-        try {
-            connection = main.getSqlManager().getConnection();
-            PreparedStatement ps;
-            ps = connection.prepareStatement("SELECT XCoin FROM players_money WHERE UUID=?");
-            ps.setString(1, uuid.toString());
-
-            ResultSet rs = ps.executeQuery();
-            int coins = 0;
-            if (rs.next()){
-                coins = rs.getInt("XCoin");
-                return String.valueOf(coins);
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "Vide";
-    }
 
 
 
@@ -82,7 +45,7 @@ public class SqlPlayerListener
         if(main.sqlManager.isConnected()){
             try {
                 UUID uuid = p.getUniqueId();
-                if(!uuidExist(uuid)){
+                if(uuidExist(uuid)){
                     PreparedStatement ps2 = connection.prepareStatement("INSERT INTO players_money" +
                             "(Pseudo,UUID) VALUES (?,?)");
                     ps2.setString(1, p.getName());
@@ -103,7 +66,6 @@ public class SqlPlayerListener
 
     }
 
-
     public boolean uuidExist(UUID uuid){
         if(main.sqlManager.isConnected()){
             try {
@@ -111,15 +73,37 @@ public class SqlPlayerListener
                 ps.setString(1, uuid.toString());
                 ResultSet results = ps.executeQuery();
                 if (results.next()) {
-                    return true;
-                } return false;
+                    return false;
+                }
 
             } catch (SQLException e){
                 e.printStackTrace();
             }
 
         }
-        return false;
+        return true;
+    }
+
+    public String getXCoins(UUID uuid){
+
+        try {
+            connection = main.getSqlManager().getConnection();
+            PreparedStatement ps;
+            ps = connection.prepareStatement("SELECT XCoin FROM players_money WHERE UUID=?");
+            ps.setString(1, uuid.toString());
+
+            ResultSet rs = ps.executeQuery();
+            int coins;
+            if (rs.next()){
+                coins = rs.getInt("XCoin");
+                return String.valueOf(coins);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Vide";
     }
 
     public void addXCoin(UUID uuid, int coins){

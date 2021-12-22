@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.io.IOException;
 import java.util.UUID;
 
 
@@ -27,9 +26,8 @@ public class onPlayerJoin implements Listener {
         UUID uuid = p.getUniqueId();
         if (!p.hasPlayedBefore()) {
             main.sqlPlayerListener.createPlayer(p);
-        } else if(!main.sqlPlayerListener.uuidExist(uuid)){
+        } else if(main.sqlPlayerListener.uuidExist(uuid)){
             main.sqlPlayerListener.createPlayer(p);
-            main.sqlPlayerListener.playerFound(uuid);
         }
 
 
