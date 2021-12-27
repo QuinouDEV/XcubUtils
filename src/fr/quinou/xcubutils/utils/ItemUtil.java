@@ -13,7 +13,9 @@ public class ItemUtil
 {
     public ItemStack getServerSelector()
     {
-        ItemStack item = new ItemStack(Material.COMPASS, 1);
+        // balance on item lore
+
+        ItemStack item = new ItemStack(Material.BRICK, 1);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.setDisplayName("��6Mode de jeu");
         List<String> lore = new ArrayList<>();

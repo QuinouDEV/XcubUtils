@@ -25,7 +25,7 @@ public class GetMoney implements CommandExecutor {
         // getcoin (no permissions) retourne thune
         if(sender instanceof Player){
             Player p = (Player) sender;
-            if (args.length >=1){
+            if (args.length == 1){
 
                 if(p.hasPermission("op")){
                     Player target  = Bukkit.getPlayerExact(args[0]);
@@ -37,11 +37,9 @@ public class GetMoney implements CommandExecutor {
                         String res = main.sqlPlayerListener.getXCoins(uuid);
                         sender.sendMessage("La thune de " + target.getName() + " est de " + ChatColor.RED + res);
                     }
-                }else{
-                    sender.sendMessage(ChatColor.DARK_RED + "Tu n'as pas la permission de faire ceci");
                 }
 
-            }else{
+            }else if(args.length == 0){
 
 
             UUID uuid = p.getUniqueId();
